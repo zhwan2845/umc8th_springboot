@@ -54,16 +54,10 @@ def generated = "src/main/generated"
 sourceSets {
 	main {
 		java {
-//			srcDirs += [generated]
 			srcDirs = ['src/main/java', generated]
-//			srcDirs = ['src/main/java', 'src/main/resources', 'src/main/generated'] // src/main/generated 경로 추가
 		}
 	}
 }
-
-//tasks.withType(JavaCompile).configureEach {
-//	options.generatedSourceOutputDirectory = file(generated)
-//}
 
 querydsl {
 	jpa = true
@@ -84,7 +78,3 @@ compileQuerydsl {
 tasks.named('compileJava') {
 	dependsOn compileQuerydsl
 }
-
-//clean {
-//	delete file('src/main/generated')
-//}

@@ -17,9 +17,16 @@ public class Review extends BaseEntity {
 
     private String title;
 
+    @Column(columnDefinition = "TEXT")
+    private String body;
+
     private Float score;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
 }
