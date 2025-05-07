@@ -33,5 +33,7 @@ public class Mission extends BaseEntity {
     @OneToMany(mappedBy = "mission", cascade = CascadeType.ALL)
     private List<MemberMission> memberMissionList = new ArrayList<>();
 
-
+    public String getTitle() {
+        return this.missionSpec; // missionSpec을 Title로 사용할 수 있게 함
+    }
 }
