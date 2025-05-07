@@ -32,7 +32,7 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
                 .store(store)
                 .body(body)
                 .score(score)
-                .createdAt(LocalDateTime.now())
+//                .createdAt(LocalDateTime.now())
                 .build();
 
         reviewRepository.save(review);
