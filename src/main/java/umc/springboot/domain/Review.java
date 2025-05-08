@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 import umc.springboot.domain.common.BaseEntity;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Getter
 @Builder
@@ -29,4 +31,9 @@ public class Review extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "store_id")
     private Store store;
+
+    // createdAt 필드를 수동으로 처리
+//    public void setCreatedAt(LocalDateTime createdAt) {
+//        this.createdAt = createdAt;
+//    }
 }
