@@ -76,18 +76,6 @@ public class MissionRepositoryImpl implements MissionRepositoryCustom {
                     )  // 해당 회원이 참여한 미션을 제외
                 )
 
-//                .where(
-//                        region.name.eq(regionName),
-//                        mission.deadline.goe(LocalDate.now()), // LocalDate.now()를 사용하여 비교
-//                        mission.id.lt(cursor),
-//                        mission.id.notIn(
-//                                JPAExpressions
-//                                        .select(memberMission.mission.id)
-//                                        .from(memberMission)
-//                                        .where(memberMission.member.id.eq(memberId))
-//                        )
-//                )
-
                 .orderBy(mission.id.desc())
                 .limit(10)
                 .fetch();

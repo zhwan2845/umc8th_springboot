@@ -17,40 +17,23 @@ import java.time.LocalDateTime;
 @Transactional
 public class ReviewCommandServiceImpl implements ReviewCommandService {
 
+    private final EntityManager em;
     private final ReviewRepository reviewRepository;
 
-    @PersistenceContext
-    private final EntityManager em;
-
-//    @Override
-//    public void saveReview(Long memberId, Long storeId, String body, float score) {
-//        Member member = em.getReference(Member.class, memberId);
-//        Store store = em.getReference(Store.class, storeId);
-//
-//        Review review = Review.builder()
-//                .member(member)
-//                .store(store)
-//                .body(body)
-//                .score(score)
-//                .createdAt(LocalDateTime.now())
-//                .build();
-//
-//        reviewRepository.save(review);
-//    }
     @Override
-    public void saveReview(Long memberId, Long storeId, String body, float score) {
+    @Transactional
+    public Review saveReview(Long memberId, Long storeId, String title, String body, Float score) {
         Member member = em.getReference(Member.class, memberId);
         Store store = em.getReference(Store.class, storeId);
 
         Review review = Review.builder()
                 .member(member)
                 .store(store)
+                .title(title)
                 .body(body)
                 .score(score)
-                .build(); // createdAt은 수동으로 설정
+                .build();
 
-//        review.setCreatedAt(LocalDateTime.now()); // createdAt 수동 설정
-        reviewRepository.save(review);
+        return reviewRepository.save(review);
     }
-
 }

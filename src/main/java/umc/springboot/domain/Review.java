@@ -32,8 +32,15 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "store_id")
     private Store store;
 
-    // createdAt 필드를 수동으로 처리
-//    public void setCreatedAt(LocalDateTime createdAt) {
-//        this.createdAt = createdAt;
-//    }
+    @Override
+    public String toString() {
+        return "Review{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                ", score=" + score +
+                ", member=" + (member != null ? member.getName() : "null") +
+                ", store=" + (store != null ? store.getName() : "null") +
+                '}';
+    }
 }
