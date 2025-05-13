@@ -15,7 +15,6 @@ import com.querydsl.core.types.dsl.PathInits;
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QMemberMission extends EntityPathBase<MemberMission> {
-//    public final StringPath status = createString("status");  // StringPath로 정의되어 있어야 합니다.
 
     private static final long serialVersionUID = 933604756L;
 
