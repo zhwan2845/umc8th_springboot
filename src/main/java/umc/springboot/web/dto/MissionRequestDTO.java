@@ -12,6 +12,7 @@ public class MissionRequestDTO {
 
     @Getter
     public static class MissionAddDto {
+        @NotNull
         private Integer reward;
 
         @NotNull
@@ -19,8 +20,6 @@ public class MissionRequestDTO {
 
         @NotBlank
         private String missionSpec;
-
-        // 생성자, builder, setter 등 필요한 방식대로 추가
     }
 
     @Getter
@@ -30,7 +29,5 @@ public class MissionRequestDTO {
 
         @NotNull
         private Long missionId;
-
-        // 생성자, builder, setter 등 필요한 방식대로 추가
     }
 }
