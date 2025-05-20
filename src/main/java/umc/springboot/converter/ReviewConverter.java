@@ -24,7 +24,7 @@ public class ReviewConverter {
     // DTO → Review
     public static Review toReview(ReviewRequestDTO.AddReviewDto request, Store store, Member member) {
         return Review.builder()
-//                .title(request.getTitle())
+                .title(request.getTitle())
                 .body(request.getBody())
                 .score(request.getScore())
                 .store(store)
