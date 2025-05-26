@@ -2,22 +2,16 @@ package umc.springboot.repository.MissionRepository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.querydsl.jpa.JPAExpressions;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import umc.springboot.domain.Mission;
 import umc.springboot.domain.QMission;
-import umc.springboot.domain.QMember;
 import umc.springboot.domain.QRegion;
 import umc.springboot.domain.QStore;
 import umc.springboot.domain.enums.MissionStatus;
 import umc.springboot.domain.mapping.QMemberMission;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.Specification.where;
 
 @Repository
 @RequiredArgsConstructor
