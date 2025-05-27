@@ -5,8 +5,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import umc.springboot.apiPayload.code.status.ErrorStatus;
+import umc.springboot.apiPayload.exception.handler.StoreHandler;
+import umc.springboot.domain.Mission;
 import umc.springboot.domain.Review;
 import umc.springboot.domain.Store;
+import umc.springboot.repository.MissionRepository.MissionRepository;
 import umc.springboot.repository.ReviewRepository.ReviewRepository;
 import umc.springboot.repository.StoreRepository.StoreRepository;
 
@@ -19,8 +23,9 @@ import java.util.Optional;
 public class StoreQueryServiceImpl implements StoreQueryService{
 
     private final StoreRepository storeRepository;
-
     private final ReviewRepository reviewRepository;
+    private final MissionRepository missionRepository;
+
 
     @Override
     public Optional<Store> findStore(Long id) {
@@ -43,5 +48,13 @@ public class StoreQueryServiceImpl implements StoreQueryService{
 
         Page<Review> StorePage = reviewRepository.findAllByStore(store, PageRequest.of(page, 10));
         return StorePage;
+    }
+
+    @Override
+    public Page<Mission> getMissionList(Long storeId, int page) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new StoreHandler(ErrorStatus.STORE_NOT_FOUND));
+
+        return missionRepository.findAllByStore(store, PageRequest.of(page, 10));
     }
 }

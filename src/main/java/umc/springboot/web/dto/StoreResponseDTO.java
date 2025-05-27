@@ -10,8 +10,6 @@ import java.util.List;
 
 public class StoreResponseDTO {
 
-    // ... 다른 코드들
-
     @Builder
     @Getter
     @NoArgsConstructor
@@ -34,5 +32,28 @@ public class StoreResponseDTO {
         Float score;
         String body;
         LocalDate createdAt;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MissionPreViewListDTO {
+        private List<MissionPreViewDTO> missionList;
+        private Integer listSize;
+        private Integer totalPage;
+        private Long totalElements;
+        private Boolean isFirst;
+        private Boolean isLast;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class MissionPreViewDTO {
+        private String missionSpec;
+        private Integer reward;
+        private LocalDate deadline;
     }
 }

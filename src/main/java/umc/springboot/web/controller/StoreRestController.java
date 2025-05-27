@@ -12,8 +12,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import umc.springboot.apiPayload.ApiResponse;
 import umc.springboot.converter.StoreConverter;
+import umc.springboot.domain.Mission;
 import umc.springboot.domain.Review;
 import umc.springboot.service.StoreService.StoreQueryService;
+import umc.springboot.validation.annotation.CheckPage;
 import umc.springboot.validation.annotation.ExistStore;
 import umc.springboot.web.dto.StoreResponseDTO;
 
@@ -39,5 +41,23 @@ public class StoreRestController {
     public ApiResponse<StoreResponseDTO.ReviewPreViewListDTO> getReviewList(@ExistStore @PathVariable(name = "storeId") Long storeId,@RequestParam(name = "page") Integer page){
         Page<Review> reviewList = storeQueryService.getReviewList(storeId, page - 1);
         return ApiResponse.onSuccess(StoreConverter.reviewPreViewListDTO(reviewList));
+    }
+
+    @GetMapping("/{storeId}/missions")
+    @Operation(summary = "특정 가게의 미션 목록 조회 API", description = "특정 가게의 미션들을 페이지별로 조회합니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON400", description = "잘못된 요청", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
+    @Parameters({
+            @Parameter(name = "storeId", description = "가게 ID"),
+            @Parameter(name = "page", description = "조회할 페이지 (1 이상)")
+    })
+    public ApiResponse<StoreResponseDTO.MissionPreViewListDTO> getMissionList(
+            @ExistStore @PathVariable("storeId") Long storeId,
+            @CheckPage @RequestParam("page") Integer page
+    ) {
+        Page<Mission> missions = storeQueryService.getMissionList(storeId, page - 1);
+        return ApiResponse.onSuccess(StoreConverter.toMissionPreViewListDTO(missions));
     }
 }
