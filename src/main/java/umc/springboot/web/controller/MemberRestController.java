@@ -15,6 +15,7 @@ import umc.springboot.apiPayload.ApiResponse;
 import umc.springboot.converter.MemberConverter;
 import umc.springboot.domain.Member;
 import umc.springboot.domain.Review;
+import umc.springboot.domain.mapping.MemberMission;
 import umc.springboot.service.MemberService.MemberCommandService;
 import umc.springboot.service.MemberService.MemberQueryService;
 import umc.springboot.validation.annotation.CheckPage;
@@ -52,5 +53,24 @@ public class MemberRestController {
 
         Page<Review> reviews = memberQueryService.getMyReviews(memberId, page - 1);
         return ApiResponse.onSuccess(MemberConverter.toMyReviewListDTO(reviews));
+    }
+
+    @GetMapping("/{memberId}/missions/challenging")
+    @Operation(summary = "내가 도전 중인 미션 목록 조회 API", description = "현재 도전 중인 미션들을 페이징 처리해서 조회합니다.")
+    @ApiResponses({
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "COMMON200", description = "성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "MEMBER4001", description = "존재하지 않는 멤버", content = @Content(schema = @Schema(implementation = ApiResponse.class))),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "PAGE4001", description = "page는 1 이상이어야 합니다.", content = @Content(schema = @Schema(implementation = ApiResponse.class)))
+    })
+    @Parameters({
+            @Parameter(name = "memberId", description = "회원 ID (PathVariable)"),
+            @Parameter(name = "page", description = "페이지 번호 (1부터 시작, query param)")
+    })
+    public ApiResponse<MemberResponseDTO.ChallengingMissionListDTO> getChallengingMissions(
+            @PathVariable Long memberId,
+            @CheckPage @RequestParam("page") Integer page
+    ) {
+        Page<MemberMission> result = memberQueryService.getChallengingMissions(memberId, page - 1);
+        return ApiResponse.onSuccess(MemberConverter.toChallengingMissionListDTO(result));
     }
 }

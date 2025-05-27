@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import umc.springboot.domain.Member;
 import umc.springboot.domain.Review;
 import umc.springboot.domain.enums.Gender;
+import umc.springboot.domain.mapping.MemberMission;
 import umc.springboot.web.dto.MemberRequestDTO;
 import umc.springboot.web.dto.MemberResponseDTO;
 
@@ -68,6 +69,29 @@ public class MemberConverter {
                 .totalElements(reviewList.getTotalElements())
                 .isFirst(reviewList.isFirst())
                 .isLast(reviewList.isLast())
+                .build();
+    }
+
+    public static MemberResponseDTO.ChallengingMissionDTO toChallengingMissionDTO(MemberMission memberMission) {
+        return MemberResponseDTO.ChallengingMissionDTO.builder()
+                .missionSpec(memberMission.getMission().getMissionSpec())
+                .reward(memberMission.getMission().getReward())
+                .storeName(memberMission.getMission().getStore().getName())
+                .build();
+    }
+
+    public static MemberResponseDTO.ChallengingMissionListDTO toChallengingMissionListDTO(Page<MemberMission> page) {
+        List<MemberResponseDTO.ChallengingMissionDTO> content = page.getContent().stream()
+                .map(MemberConverter::toChallengingMissionDTO)
+                .collect(Collectors.toList());
+
+        return MemberResponseDTO.ChallengingMissionListDTO.builder()
+                .missionList(content)
+                .listSize(content.size())
+                .totalPage(page.getTotalPages())
+                .totalElements(page.getTotalElements())
+                .isFirst(page.isFirst())
+                .isLast(page.isLast())
                 .build();
     }
 }
