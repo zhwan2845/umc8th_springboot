@@ -45,25 +45,25 @@ public class SpringbootApplication {
 			System.out.println("Name: " + name);
 			System.out.println("Score: " + score);
 
-			storeService.findStoresByNameAndScore(name, score)
-					.forEach(System.out::println);
-
-
-			SpringbootApplication app = context.getBean(SpringbootApplication.class);
-			app.initData(context); // 이 메서드에 @Transactional이 붙어있음
-			app.saveAndPrintReview(context); // 이것도 트랜잭션 안에서 실행됨
-
-			MissionQueryService missionQueryService = context.getBean(MissionQueryService.class);
-			Long memberId = 1L; // 실제 생성된 Member의 ID로 교체해야 함
-
-			System.out.println("=== 유효한 미션 조회 결과 ===");
-			List<Mission> availableMissions = missionQueryService.findAvailableMissionsByRegion(
-					"서울",
-					memberId,
-					Long.MAX_VALUE
-			);
-
-			availableMissions.forEach(m -> System.out.println(m.getTitle()));
+//			storeService.findStoresByNameAndScore(name, score)
+//					.forEach(System.out::println);
+//
+//
+//			SpringbootApplication app = context.getBean(SpringbootApplication.class);
+//			app.initData(context); // 이 메서드에 @Transactional이 붙어있음
+//			app.saveAndPrintReview(context); // 이것도 트랜잭션 안에서 실행됨
+//
+//			MissionQueryService missionQueryService = context.getBean(MissionQueryService.class);
+//			Long memberId = 1L; // 실제 생성된 Member의 ID로 교체해야 함
+//
+//			System.out.println("=== 유효한 미션 조회 결과 ===");
+//			List<Mission> availableMissions = missionQueryService.findAvailableMissionsByRegion(
+//					"서울",
+//					memberId,
+//					Long.MAX_VALUE
+//			);
+//
+//			availableMissions.forEach(m -> System.out.println(m.getTitle()));
 		};
 	}
 

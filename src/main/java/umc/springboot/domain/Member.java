@@ -6,10 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import umc.springboot.domain.common.BaseEntity;
-import umc.springboot.domain.enums.Gender;
-import umc.springboot.domain.enums.MemberStatus;
-import umc.springboot.domain.enums.MissionStatus;
-import umc.springboot.domain.enums.SocialType;
+import umc.springboot.domain.enums.*;
 import umc.springboot.domain.mapping.MemberAgree;
 import umc.springboot.domain.mapping.MemberMission;
 import umc.springboot.domain.mapping.MemberPrefer;
@@ -56,8 +53,14 @@ public class Member extends BaseEntity {
 
     private LocalDate inactiveDate;
 
-//    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50)
     private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @ColumnDefault("0")
     private Integer point;
@@ -73,4 +76,8 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberMission> memberMissionList = new ArrayList<>();
+
+    public void encodePassword(String password) {
+        this.password = password;
+    }
 }
