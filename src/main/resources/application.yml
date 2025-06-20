@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/umc8th
+    url: jdbc:mysql://localhost:3306/umc8th?serverTimezone=Asia/Seoul
     username: root
     password: shinecwj24
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -15,8 +15,20 @@ spring:
         format_sql: true
         use_sql_comments: true
         hbm2ddl:
-          auto: update
+          auto: create
         default_batch_fetch_size: 1000
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-authentication-method: client_secret_post
+            client-id: 0677733cd5593f1daf468e85ef69b253
+            client-secret: AxMoGrJK3BGJrQYUezHqWC3WIfeaOOSK
+            redirect-uri: http://43.200.177.104:8080/login/oauth2/code/kakao
+            authorization-grant-type: authorization_code
+            scope: profile_nickname
+            client-name: Kakao
 
 jwt:
   token:
