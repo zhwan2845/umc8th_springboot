@@ -13,9 +13,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable() // CSRF 비활성화
+                .csrf().disable()
+                .formLogin().disable() // 로그인 폼 비활성화
+                .httpBasic().disable() // Basic 인증 비활성화
                 .authorizeHttpRequests()
                 .anyRequest().permitAll(); // 모든 요청 허용
+
         return http.build();
     }
 }
