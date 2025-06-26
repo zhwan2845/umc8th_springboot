@@ -2,6 +2,7 @@ package umc.springboot.converter;
 
 import umc.springboot.domain.Member;
 import umc.springboot.domain.Review;
+import umc.springboot.domain.ReviewImage;
 import umc.springboot.domain.Store;
 import umc.springboot.web.dto.ReviewRequestDTO;
 import umc.springboot.web.dto.ReviewResponseDTO;
@@ -31,4 +32,12 @@ public class ReviewConverter {
                 .member(member)
                 .build();
     }
+
+    public static ReviewImage toReviewImage(String imageUrl, Review review) {
+        return ReviewImage.builder()
+                .imageUrl(imageUrl)
+                .review(review)
+                .build();
+    }
+
 }

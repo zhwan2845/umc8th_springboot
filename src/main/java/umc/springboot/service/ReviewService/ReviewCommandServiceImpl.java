@@ -5,6 +5,7 @@ import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import umc.springboot.apiPayload.code.status.ErrorStatus;
 import umc.springboot.apiPayload.exception.handler.StoreHandler;
 import umc.springboot.domain.Member;
@@ -26,7 +27,7 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
 
     @Override
     @Transactional
-    public Review saveReview(Long memberId, Long storeId, String title, String body, Float score) {
+    public Review saveReview(Long memberId, Long storeId, String title, String body, Float score, MultipartFile reviewPicture) {
         Member member = em.getReference(Member.class, memberId);
 
         Store store = storeRepository.findById(storeId)

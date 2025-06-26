@@ -1,5 +1,6 @@
 package umc.springboot.web.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -21,6 +22,7 @@ public class ReviewRequestDTO {
         @NotBlank(message = "본문 내용은 필수입니다.")
         private String body;
 
+        @Schema(description = "리뷰 점수 (0.0 ~ 5.0)", example = "0")
         @NotNull(message = "점수는 필수입니다.")
         @DecimalMin(value = "0.0", message = "최소 점수는 0.0입니다.")
         @DecimalMax(value = "5.0", message = "최대 점수는 5.0입니다.")

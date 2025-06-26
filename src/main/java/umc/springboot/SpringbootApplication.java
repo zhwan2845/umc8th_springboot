@@ -112,10 +112,10 @@ public class SpringbootApplication {
 		em.persist(memberMission);
 	}
 
-	@Transactional
-	public void saveAndPrintReview(ApplicationContext context) {
-		ReviewCommandService reviewCommandService = context.getBean(ReviewCommandService.class);
-		Review egReview = reviewCommandService.saveReview(1L, 1L, "후기 제목", "매우 만족합니다!", 4.5f);
-		System.out.println(egReview);
-	}
+//	@Transactional
+//	public void saveAndPrintReview(ApplicationContext context) {
+//		ReviewCommandService reviewCommandService = context.getBean(ReviewCommandService.class);
+//		Review egReview = reviewCommandService.saveReview(1L, 1L, "후기 제목", "매우 만족합니다!", 4.5f);
+//		System.out.println(egReview);
+//	}
 }

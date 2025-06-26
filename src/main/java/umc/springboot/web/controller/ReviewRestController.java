@@ -2,8 +2,10 @@ package umc.springboot.web.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import umc.springboot.apiPayload.ApiResponse;
 import umc.springboot.converter.ReviewConverter;
 import umc.springboot.domain.Review;
@@ -18,17 +20,23 @@ public class ReviewRestController {
 
     private final ReviewCommandService reviewCommandService;
 
-    @PostMapping("/{storeId}/reviews")
+    @PostMapping(
+            value = "/{storeId}/reviews",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}
+    )
     public ApiResponse<ReviewResponseDTO.AddResultDTO> saveReview(
+            @RequestPart("request") @Valid ReviewRequestDTO.AddReviewDto request,
             @PathVariable("storeId") Long storeId,
-            @RequestBody @Valid ReviewRequestDTO.AddReviewDto request
+            @RequestParam("memberId") Long memberId,
+            @RequestPart("reviewPicture") MultipartFile reviewPicture
     ) {
         Review review = reviewCommandService.saveReview(
-                request.getMemberId(),
+                memberId,
                 storeId,
                 request.getTitle(),
                 request.getBody(),
-                request.getScore()
+                request.getScore(),
+                reviewPicture
         );
         return ApiResponse.onSuccess(ReviewConverter.toAddReviewResultDTO(review));
     }
