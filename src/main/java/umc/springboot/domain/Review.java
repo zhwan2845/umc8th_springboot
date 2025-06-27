@@ -32,6 +32,9 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "store_id")
     private Store store;
 
+    @OneToOne(mappedBy = "review", cascade = CascadeType.ALL, orphanRemoval = true)
+    private ReviewImage reviewImage;
+
     @Override
     public String toString() {
         return "Review{" +

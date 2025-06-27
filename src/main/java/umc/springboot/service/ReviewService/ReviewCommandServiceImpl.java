@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import umc.springboot.apiPayload.code.status.ErrorStatus;
 import umc.springboot.apiPayload.exception.handler.StoreHandler;
+import umc.springboot.aws.AmazonS3Manager;
 import umc.springboot.domain.Member;
 import umc.springboot.domain.Review;
 import umc.springboot.domain.Store;
@@ -24,6 +25,7 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
     private final EntityManager em;
     private final ReviewRepository reviewRepository;
     private final StoreRepository storeRepository;
+    private final AmazonS3Manager amazonS3Manager;
 
     @Override
     @Transactional
@@ -42,5 +44,21 @@ public class ReviewCommandServiceImpl implements ReviewCommandService {
                 .build();
 
         return reviewRepository.save(review);
+    }
+
+    @Override
+    public void deleteReview(Long reviewId) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 리뷰입니다."));
+
+        String s3Key = extractS3KeyFromUrl(review.getReviewImage().getImageUrl());
+
+        amazonS3Manager.deleteFile(s3Key);
+
+        reviewRepository.delete(review);
+    }
+
+    private String extractS3KeyFromUrl(String imageUrl) {
+        return imageUrl.substring(imageUrl.indexOf("review/"));
     }
 }

@@ -40,4 +40,13 @@ public class AmazonS3Manager{
         return amazonConfig.getReviewPath() + '/' + uuid.getUuid();
     }
 
+    public void deleteFile(String keyName) {
+        try {
+            amazonS3.deleteObject(amazonConfig.getBucket(), keyName);
+            log.info("Deleted file from S3: {}", keyName);
+        } catch (Exception e) {
+            log.error("Error deleting file from S3: {}", e.getMessage(), e);
+        }
+    }
+
 }

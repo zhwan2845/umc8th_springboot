@@ -28,8 +28,5 @@ public class ReviewRequestDTO {
         @DecimalMax(value = "5.0", message = "최대 점수는 5.0입니다.")
         private Float score;
 
-        // storeId는 PathVariable로 받으므로 제거
-        @NotNull(message = "회원 ID는 필수입니다.")
-        private Long memberId;
     }
 }

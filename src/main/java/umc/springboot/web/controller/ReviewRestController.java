@@ -1,5 +1,6 @@
 package umc.springboot.web.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -40,4 +41,12 @@ public class ReviewRestController {
         );
         return ApiResponse.onSuccess(ReviewConverter.toAddReviewResultDTO(review));
     }
+
+    @Operation(summary = "리뷰 삭제", description = "리뷰 ID로 리뷰와 사진을 삭제합니다.")
+    @DeleteMapping("/reviews/{reviewId}")
+    public ApiResponse<String> deleteReview(@PathVariable Long reviewId) {
+        reviewCommandService.deleteReview(reviewId);
+        return ApiResponse.onSuccess("리뷰가 삭제되었습니다.");
+    }
+
 }
